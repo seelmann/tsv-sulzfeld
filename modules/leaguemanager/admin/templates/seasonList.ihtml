@@ -1,0 +1,18 @@
+<html>
+  <head>
+    <link rel="STYLESHEET" type="text/css" href="/css/admin.css"></link>
+    <script language="JavaScript" src="lm.js" type="text/javascript"></script>
+  </head>
+  <body>
+      <table>
+        <tr><td><a href="season.php?new=new">neue Saison erstellen</a></td></tr>
+        <tr><td>&nbsp;</td></tr>
+        <!-- BEGIN season -->
+        <tr><td><a href="season.php?seasonID={SEASON_SEASONID}">{SEASON_SEASONNAME}</a></td></tr>
+        <!-- END season -->
+      </table>
+    </form>
+  </body>
+</html>
+
+

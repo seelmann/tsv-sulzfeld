@@ -1,0 +1,146 @@
+<?php
+        include_once("classError.php");
+        include_once("classDBmysql.php");
+
+        include("classMatchDate.php");
+        include("classDate.php");
+        include("classOwnTeamsInSeason.php");
+        include("classResult.php");
+        include("classNews.php");
+
+        $data = "";
+        $errors = 0;
+        $error = new Error();
+        $db = new DBmysql($error);
+
+        $weeks = 4;
+        $limit = 7;
+
+        xmlStart($data);
+
+        //News
+        $newsIterator = new NewsIterator($db);
+        $newsIterator->createIterator($weeks, $limit);
+        if($newsIterator->hasNext())
+        {
+                $data .= "<header size=\"3\" align=\"left\">News:</header>\n";
+                $data .= "<table align=\"center\" >\n";
+
+                while($newsIterator->hasNext())
+                {
+                        $news = $newsIterator->next();
+                        $data .= "<row>\n";
+                        $data .= "<cell><b>".$news->getHead()."</b></cell>\n";
+                        $data .= "<cell align=\"right\">von ".$news->getModrealname()."</cell>\n";
+                        $data .= "</row>\n";
+                        $data .= "<row>\n";
+                        $data .= "<cell span=\"2\">".$news->getText()."</cell>\n";
+                        $data .= "</row>\n";
+                        $data .= "<row toggle=\"false\"><cell>&amp;nbsp;</cell></row>\n";
+                }
+
+                $data .= "</table>\n";
+        }
+
+        // Dates
+        $data .= "<header size=\"3\" align=\"left\">Termine:</header>\n";
+        $data .= "<table align=\"center\">\n";
+
+        // allgemein
+        $dateIterator = new DateIterator($db);
+        $dateIterator->createIterator($weeks, $limit);
+
+        if($dateIterator->hasNext())
+        {
+                $data .= "<row toggle=\"reset\">\n";
+                $data .= sprintf("<cell rowspan=\"%s\"><b>allgemein:</b></cell>\n", $dateIterator->getNumber()+1);
+                $data .= "<cellh>Datum</cellh>\n";
+                $data .= "<cellh>Uhrzeit</cellh>\n";
+                $data .= "<cellh span=\"2\">Veranstaltung</cellh>\n";
+                $data .= "<cellh>Ort</cellh>\n";
+                $data .= "</row>\n";
+
+                $data .= "<row>\n";
+                $date = $dateIterator->next();
+                $data .= "<cell>".$date->getDate()."</cell>\n";
+                $data .= "<cell>".$date->getTime()."</cell>\n";
+                $data .= "<cell span=\"2\">".$date->getEvent()."</cell>\n";
+                $data .= "<cell>".$date->getLocation()."</cell>\n";
+                if( ($date->getHead() != "") || ($date->getText() != "") )
+                        $data .= "<cell><infopopup paramkey=\"dateID\" paramval=\"".$date->getID()."\"></infopopup></cell>\n";
+                $data .= "</row>\n";
+
+                while($dateIterator->hasNext())
+                {
+                        $date = $dateIterator->next();
+                        $data .= "<row>\n";
+                        $data .= "<cell>".$date->getDate()."</cell>\n";
+                        $data .= "<cell>".$date->getTime()."</cell>\n";
+                        $data .= "<cell span=\"2\">".$date->getEvent()."</cell>\n";
+                        $data .= "<cell>".$date->getLocation()."</cell>\n";
+                        if( ($date->getHead() != "") || ($date->getText() != "") )
+                                $data .= "<cell><infopopup paramkey=\"dateID\" paramval=\"".$date->getID()."\"></infopopup></cell>\n";
+                        $data .= "</row>\n";
+                }
+        }
+
+        // Spiele
+        $matchdate = new MatchDate($db);
+        $matchdate->createSportDates($weeks);
+        while($matchdate->nextSport($weeks, $limit))
+        {
+                $data .= "<row toggle=\"false\"><cell>&amp;nbsp;</cell></row>\n";
+                $data .= "<row toggle=\"reset\">\n";
+                $data .= sprintf("<cell rowspan=\"%s\"><b>".$matchdate->getSportName()."spiele:</b></cell>\n", $matchdate->getDateNumber()+1);
+                $data .= "<cellh>Datum</cellh>\n";
+                $data .= "<cellh>Uhrzeit</cellh>\n";
+                $data .= "<cellh>Heim</cellh>\n";
+                $data .= "<cellh>&amp;nbsp;</cellh>\n";
+                $data .= "<cellh>Gast</cellh>\n";
+                $data .= "</row>\n";
+
+                $data .= "<row>\n";
+                $matchdate->nextDate();
+                $data .= "<cell>".$matchdate->getDate()."</cell>\n";
+                $data .= "<cell>".$matchdate->getTime()."</cell>\n";
+                $data .= "<cell>".$matchdate->getHomeTeamName()."</cell>\n";
+                $data .= "<cell> - </cell>\n";
+                $data .= "<cell>".$matchdate->getGuestTeamName()."</cell>\n";
+                if( ($matchdate->getInfoHead() != "") || ($matchdate->getInfoText() != "") )
+                        $data .= "<cell><infopopup paramkey=\"matchInfoID\" paramval=\"".$matchdate->getInfoID()."\"></infopopup></cell>\n";
+                $data .= "</row >\n";
+
+                while($matchdate->nextDate())
+                {
+                        $data .= "<row>\n";
+                        $data .= "<cell>".$matchdate->getDate()."</cell>\n";
+                        $data .= "<cell>".$matchdate->getTime()."</cell>\n";
+                        $data .= "<cell>".$matchdate->getHomeTeamName()."</cell>\n";
+                        $data .= "<cell> - </cell>\n";
+                        $data .= "<cell>".$matchdate->getGuestTeamName()."</cell>\n";
+                        if( ($matchdate->getInfoHead() != "") || ($matchdate->getInfoText() != "") )
+                                $data .= "<cell><infopopup paramkey=\"matchInfoID\" paramval=\"".$matchdate->getInfoID()."\"></infopopup></cell>\n";
+                        $data .= "</row>\n";
+                }
+        }
+
+        $data .= "</table>\n";
+
+        xmlStop($data);
+
+
+
+        function xmlStart(&$data)
+        {
+                $data = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n";
+                // $data = "<!DOCTYPE page [ <!ENTITY nbsp \"&amp;nbsp;\"> ]>";
+                $data .= "<page>\n";
+                // $data .= sprintf("<header align=\"center\" size=\"1\">TSV Sulzfeld</header>\n");
+        }
+
+        function xmlStop(&$data)
+        {
+
+                $data .= "</page>\n";
+        }
+?>

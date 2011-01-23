@@ -1,0 +1,91 @@
+body, h1, h3, table, tr, td
+{
+  font-family: arial, helvetica, sans-serif;
+  color: black;
+  font-size: 10pt;
+}
+
+h1
+{
+  font-weight: bold;
+  font-size: 20pt;
+}
+
+h3
+{
+  font-weight: bold;
+  font-size: 18pt;
+}
+
+h5
+{
+  font-weight: bold;
+  font-size: 14pt;
+}
+
+.error
+{
+  color: red;
+}
+
+.regCard
+{
+  background-color: #FFCC66;
+}
+
+
+table.menu, tr.menu, td.menu, a.menu
+{
+  background-color: #FFFFFF;
+  font-size: 10pt;
+  text-decoration: none;
+}
+
+a.menu:hover
+{
+  text-decoration: underline;
+}
+
+table.outside, tr.outside, td.outside, a.outside
+{
+  background-color: #FFFFFF;
+  font-size: 10pt;
+  text-decoration: none;
+}
+
+td.menuSelected, a.menuSelected
+{
+  background-color: #0000FF;
+  color: #FFFFFF;
+  font-size: 10pt;
+  text-decoration: none;
+}
+
+table.action, tr.action, td.action, a.action
+{
+  background-color: #CCCCCC;
+  font-size: 10pt;
+  text-decoration: none;
+}
+tr.emph
+{
+  background-color: #CCCCCC;
+}
+table.emph
+{
+  background-color: #FFFFFF;
+}
+a.action:hover
+{
+  text-decoration: underline;
+}
+
+a
+{
+  text-decoration: none;
+}
+
+a:hover
+{
+  text-decoration: underline;
+}

@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <link rel="STYLESHEET" type="text/css" href="/css/admin.css"></link>
+    <script language="JavaScript" src="news.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <form name="menuform" action="newsList.php" method="post">
+      <table>
+        <tr><td><a href="news.php?new=new" target="edit">neue News eintragen</a></td></tr>
+        <tr><td>&nbsp;</td></tr>
+        <tr>
+          <td>Zeitraum:
+            <select name="num" onchange="submit()">
+              <option value=""></option>
+              <option value="25">die letzen 25 News</option>
+              <option value="50">die letzen 50 News</option>
+              <option value="0">alle News</option>
+            </select>
+            <input type="submit" value="OK"></input>
+          </td>
+        </tr>
+        <tr><td>&nbsp;</td></tr>
+        <!-- BEGIN news -->
+        <tr><td><a href="news.php?newsID={NEWS_NEWSID}" target="edit">{NEWS_NEWSNAME}</a></td></tr>
+        <!-- END news -->
+      </table>
+    </form>
+  </body>
+</html>
+
+

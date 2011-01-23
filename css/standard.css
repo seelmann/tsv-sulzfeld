@@ -1,0 +1,118 @@
+body
+{
+  background-color:     #D0DCE0;
+}
+
+
+body, h1, h2, h3, h4, h5, h6, ul, ol, li, table, tr, td
+{
+  font-family:          arial, helvetica, sans-serif;
+  color:                #000080;
+}
+
+a
+{
+  text-decoration: underline;
+}
+
+a:hover
+{
+  text-decoration: underline;
+  color: black;
+}
+
+table, tr, td
+{
+  vertical-align:top
+}
+
+table.bg
+{
+  margin:               0pt;
+}
+
+div.header
+{
+  width:                100%;
+  border-top-width:     2pt;
+  border-left-width:    2pt;
+  border-right-width:   2pt;
+  border-bottom-width:  2pt;
+  border-style:         solid;
+  border-color:         #000080;
+  background-color:     #D0DCE0;
+}
+
+div.main
+{
+  width:                100%;
+  border-top-width:     0pt;
+  border-left-width:    2pt;
+  border-right-width:   2pt;
+  border-bottom-width:  0pt;
+  border-style:         solid;
+  border-color:         #000080;
+  background-color:     #D0DCE0;
+}
+
+div.footer
+{
+  width:                100%;
+  border-top-width:     2pt;
+  border-left-width:    2pt;
+  border-right-width:   2pt;
+  border-bottom-width:  2pt;
+  border-style:         solid;
+  border-color:         #000080;
+  background-color:     #D0DCE0;
+}
+
+div.content
+{
+  border-top-width:     0pt;
+  border-left-width:    2pt;
+  border-right-width:   0pt;
+  border-bottom-width:  0pt;
+  border-style:         solid;
+  border-color:         #000080;
+  background-color:     #D0DCE0;
+}
+
+
+
+table.menu,
+{
+  background-color:     #D0DCE0;
+}
+tr.menu, td.menu, a.menu
+{
+  background-color:     #000080;
+  color:                #D0DCE0;
+  font-size: 12pt;
+  font-weight:bold;
+  text-decoration: none;
+  white-space:nowrap;
+}
+a.menu
+{
+  text-decoration: none;
+  color: #D0DCE0;
+}
+a.menu:hover
+{
+  color: #FFFF00;
+}
+
+
+
+/*
+ * content
+ */
+
+table.content
+{
+  border-width:         2pt;
+  border-style:         solid;
+  border-color:         #000080;
+}
+

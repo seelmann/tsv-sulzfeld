@@ -1,0 +1,18 @@
+<html>
+  <head>
+    <link rel="STYLESHEET" type="text/css" href="/css/admin.css"></link>
+    <script language="JavaScript" src="lm.js" type="text/javascript"></script>
+  </head>
+  <body>
+      <table>
+        <tr><td><h3 align="center">Zusatzinfos zu Spielen</h1></td></tr>
+        <tr><td>&nbsp;</td></tr>
+        <!-- BEGIN matchinfo -->
+        <tr><td><a href="matchInfo.php?number={NUMBER}">{NAME}</a></td></tr>
+        <!-- END matchinfo -->
+      </table>
+    </form>
+  </body>
+</html>
+
+

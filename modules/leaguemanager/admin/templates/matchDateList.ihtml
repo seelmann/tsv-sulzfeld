@@ -1,0 +1,67 @@
+<html>
+  <head>
+    <link rel="STYLESHEET" type="text/css" href="/css/admin.css"></link>
+    <script language="JavaScript" src="lm.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <form name="save" action="matchDateList.php" method="post">
+      <h1>Spiele erfassen</h1>
+      <table class="emph">
+        <!-- BEGIN error -->
+        <tr>
+          <td colspan="2" align="center">{ERROR_TEXT}</td>
+        </tr>
+        <!-- END error -->
+        <!-- BEGIN list -->
+        <tr class="emph">
+          <th> Nr. </th>
+          <th> Datum </th>
+          <th> Uhrzeit </th>
+          <th> Heimmannschaft </th>
+          <th> Gastmannschaft </th>
+        </tr>
+        <!-- BEGIN match -->
+        <tr class="emph">
+          <td> {MATCH_NUMBER} </td>
+          <td> <input type="text" size="12" name="dates[{MATCH_NUMBER}]" value="{MATCH_DATE}"> </input> </td>
+          <td> <input type="text" size="10" name="times[{MATCH_NUMBER}]" value="{MATCH_TIME}"> </input> </td>
+          <td>
+            <select name="hometeams[{MATCH_NUMBER}]">
+               <option value="0"> </option>
+               <!-- BEGIN hometeam -->
+               <option value="{HOME_TEAM_ID}" {HOME_TEAM_SELECTED}>{HOME_TEAM_NAME}</option>
+               <!-- END hometeam -->
+            </select>
+          </td>
+          <td>
+            <select name="guestteams[{MATCH_NUMBER}]">
+              <option value="0"> </option>
+               <!-- BEGIN guestteam -->
+               <option value="{GUEST_TEAM_ID}" {GUEST_TEAM_SELECTED}>{GUEST_TEAM_NAME}</option>
+               <!-- END guestteam -->
+            </select>
+          </td>
+        </tr>
+        <!-- END match -->
+        <tr>
+          <td colspan="2">
+            <input type="hidden" name="job" value=""></input>
+            <input type="button" value="abbrechen" onclick="doCancel('')"></input>
+            &nbsp;
+            <input type="button" value="OK" onclick="doModify()"></input>
+          </td>
+        </tr>
+        <!-- END list -->
+        <!-- BEGIN success -->
+        <tr>
+          <td colspan="2" align="center">{SUCCESS_TEXT}</td>
+          <script language="javascript">
+            window.setTimeout("location.href = 'empty.php'; parent.menu.document.menuform.submit()",2000)
+          </script>
+        </tr>
+        <!-- END success -->
+      </table>
+    </form>
+  </body>
+</html>
+

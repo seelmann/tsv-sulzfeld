@@ -1,0 +1,71 @@
+div.header
+{
+  width:                100%;
+  border-top-width:     2pt;
+  border-left-width:    2pt;
+  border-right-width:   2pt;
+  border-bottom-width:  2pt;
+  border-style:         solid;
+  border-color:         #022A86;
+  background-color:     #D0DCE0;
+}
+
+div.main
+{
+  width:                100%;
+  border-top-width:     0pt;
+  border-left-width:    2pt;
+  border-right-width:   2pt;
+  border-bottom-width:  0pt;
+  border-style:         solid;
+  border-color:         #022A86;
+  background-color:     #D0DCE0;
+}
+
+div.footer
+{
+  width:                100%;
+  border-top-width:     2pt;
+  border-left-width:    2pt;
+  border-right-width:   2pt;
+  border-bottom-width:  2pt;
+  border-style:         solid;
+  border-color:         #022A86;
+  background-color:     #D0DCE0;
+}
+
+div.content
+{
+  border-top-width:     0pt;
+  border-left-width:    0pt;
+  border-right-width:   0pt;
+  border-bottom-width:  0pt;
+  border-style:         solid;
+  border-color:         #022A86;
+  background-color:     #D0DCE0;
+}
+
+table.menu,
+{
+  background-color:     #D0DCE0;
+
+}
+td.menu, a.menu
+{
+  background-color:     #022A86;
+  color:                #D0DCE0;
+  font-size:            12pt;
+  font-weight:          bold;
+  text-decoration:      none;
+  white-space:          nowrap;
+}
+td.menuspacer
+{
+  background-color:     #022A86;
+  height:               5pt;
+}
+a.menu:hover
+{
+  color: #FFFF00;
+}
+         1E3E92

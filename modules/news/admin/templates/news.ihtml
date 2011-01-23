@@ -1,0 +1,52 @@
+<html>
+  <head>
+    <link rel="STYLESHEET" type="text/css" href="/css/admin.css"></link>
+    <script language="JavaScript" src="news.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <form name="save" action="news.php" method="post">
+      <h1 align="center">{NEWS_HEADER}</h1>
+      <table>
+        <!-- BEGIN error -->
+        <tr>
+          <td colspan="2" align="center">{ERROR_TEXT}</td>
+        </tr>
+        <!-- END error -->
+        <!-- BEGIN news -->
+        <tr>
+          <td>Überschrift:</td>
+          <td><input type="text" size="40" name="head" value="{NEWS_HEAD}"></input></td>
+        </tr>
+        <tr>
+          <td>Text:</td>
+          <td><textarea wrap="virutal" name="text" cols="40" rows="10">{NEWS_TEXT}</textarea></td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <input type="hidden" name="job" value=""></input>
+            <input type="button" value="abbrechen" onclick="doCancel('')"></input>
+            &nbsp;
+            <!-- BEGIN modifybuttons -->
+            <input type="button" value="ändern" onclick="doModify()"></input>
+            &nbsp;
+            <input type="button" value="löschen" onclick="doDelete()"></input>
+            <!-- END modifybuttons -->
+            <!-- BEGIN createbuttons -->
+            <input type="button" value="erstellen" onclick="doCreate()"></input>
+            <!-- END createbuttons -->
+          </td>
+        </tr>
+        <!-- END news -->
+        <!-- BEGIN success -->
+        <tr>
+          <td colspan="2" align="center">{SUCCESS_TEXT}</td>
+          <script language="javascript">
+            window.setTimeout("location.href='empty.php'; parent.menu.document.menuform.submit()",2000)
+          </script>
+        </tr>
+        <!-- END success -->
+      </table>
+    </form>
+  </body>
+</html>
+

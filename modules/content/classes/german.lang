@@ -1,0 +1,31 @@
+<?php
+
+
+/**
+ * CMS
+ */
+$lang["header"]         =       "Überschrift";
+$lang["size"]           =       "Größe";
+$lang["alignment"]      =       "Ausrichtung";
+$lang["text"]           =       "Text";
+$lang["image"]          =       "Bild";
+$lang["link"]           =       "Link";
+$lang["text2show"]      =       "Anzugeigender Text";
+$lang["freeinput"]      =       "freie Eingabe";
+$lang["emailaddress"]   =       "E-Mail Adresse";
+$lang["internpage"]     =       "Interne Seite";
+$lang["interncat"]      =       "Interne Kategorie";
+$lang["list"]           =       "Liste";
+$lang["numbering"]      =       "Nummerierung";
+$lang["simpletable"]    =       "einfache Tabelle";
+$lang["numofrows"]      =       "Anzahl Zeilen";
+$lang["numofcols"]      =       "Anzahl Spalten";
+$lang["cols"]           =       "Spalten";
+$lang["table"]          =       "Tabelle";
+$lang["title"]          =       "Titel";
+$lang["activ"]          =       "aktiv";
+
+
+//     $this->lang["text"]
+?>
+

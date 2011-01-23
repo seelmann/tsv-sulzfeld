@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <link rel="STYLESHEET" type="text/css" href="/css/admin.css"></link>
+    <script language="JavaScript" src="lm.js" type="text/javascript"></script>
+  </head>
+  <body>
+      <table>
+        <tr><td><a href="team.php?new=new">neue Mannschaft erstellen</a></td></tr>
+        <tr>
+
+        <!-- BEGIN sport -->
+        <td valign="top"><table>
+        <tr><td>&nbsp;</td></tr>
+        <tr><td><h3><u>{TEAM_SPORT_NAME}:</u></h3></td></tr>
+        <!-- BEGIN activeyouth -->
+        <tr><td><h4><u>{TEAM_ACTIVEYOUTH_NAME}:</u></h4></td></tr>
+        <!-- BEGIN team -->
+        <tr><td><a href="team.php?teamID={TEAM_TEAMID}">{TEAM_TEAMNAME}</a></td></tr>
+        <!-- END team -->
+        <!-- END activeyouth -->
+        </table></td>
+        <!-- END sport -->
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>
+
+

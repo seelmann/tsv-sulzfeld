@@ -1,0 +1,164 @@
+<html>
+  <head>
+    <link rel="STYLESHEET" type="text/css" href="/css/admin.css"></link>
+    <script language="JavaScript" src="lm.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <form name="menuform" action="menu.php" method="post">
+      <table>
+        <tr>
+          <td colspan="2"><h3>Stammdaten:</h3></td>
+        </tr>
+        <tr class="action">
+          <td colspan="2" class="action">
+            <div align="right"> <a href="seasonList.php" target="edit">Saison</a> </div>
+            <div align="right"> <a href="sportList.php" target="edit">Sportarten</a> </div>
+            <div align="right"> <a href="leagueList.php" target="edit">Ligen</a> </div>
+            <div align="right"> <a href="teamList.php" target="edit">Mannschaften</a> </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"><h3>fehlende Ergebnisse:</h3></td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <div align="right"><a href="missingResultList.php?type=all" target="edit">alle</a> </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <div align="right"><a href="missingResultList.php?type=fbakt" target="edit">Fuﬂball aktive</a> </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <div align="right"><a href="missingResultList.php?type=ttakt" target="edit">Tischtennis aktive</a> </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <div align="right"><a href="missingResultList.php?type=ttjug" target="edit">Tischtennis Jugend</a> </div>
+          </td>
+        </tr>
+
+        <!-- BEGIN league -->
+        <tr>
+          <td colspan="2"><h3>Ligen:</h3></td>
+        </tr>
+        <!-- BEGIN select_season -->
+        <tr>
+          <td>Saison: </td>
+          <td>
+            <select name="seasonID" onchange="submit()">
+              <option value=""></option>
+              <!-- BEGIN select_season_option -->
+              <option value="{SELECT_SEASON_VALUE}" {SELECT_SEASON_SELECTED}>{SELECT_SEASON_NAME}</option>
+              <!-- END select_season_option -->
+            </select>
+            <input type="submit" value="OK"></input>
+          </td>
+        </tr>
+        <!-- END select_season -->
+
+        <!-- BEGIN select_sport -->
+        <tr>
+          <td>Sportart: </td>
+          <td>
+            <select name="sportID" onchange="submit()">
+              <option value=""></option>
+              <!-- BEGIN select_sport_option -->
+              <option value="{SELECT_SPORT_VALUE}" {SELECT_SPORT_SELECTED}>{SELECT_SPORT_NAME}</option>
+              <!-- END select_sport_option -->
+            </select>
+            <input type="submit" value="OK"></input>
+          </td>
+        </tr>
+        <!-- END select_sport -->
+
+        <!-- BEGIN select_league -->
+        <tr>
+          <td>Liga: </td>
+          <td>
+            <select name="leagueID" onchange="submit()">
+              <option value=""></option>
+              <!-- BEGIN select_league_option -->
+              <option value="{SELECT_LEAGUE_VALUE}" {SELECT_LEAGUE_SELECTED}>{SELECT_LEAGUE_NAME}</option>
+              <!-- END select_league_option -->
+            </select>
+            <input type="submit" value="OK"></input>
+          </td>
+        </tr>
+        <!-- END select_league -->
+
+        <!-- BEGIN leagueinseason -->
+        <tr class="action">
+          <td colspan="2" class="action">
+            <div align="left">{LIS_TEXT}</div>
+            <div align="right"><a href="leagueInSeason.php" target="edit">{LIS_BUTTON_VALUE}</a></div>
+          </td>
+        </tr>
+        <tr >
+          <td colspan="2"> &nbsp; </td>
+        </tr>
+        <!-- END leagueinseason -->
+
+        <!-- BEGIN teamsinleagueinseason -->
+        <tr class="action">
+          <td colspan="2" class="action">
+            <div align="left">{TILIS_TEXT}</div>
+            <div align="right"><a href="teamsInLeagueInSeason.php" target="edit">{TILIS_BUTTON_VALUE}</a></div>
+            <div align="right"><a href="ownTeamsInLeagueInSeason.php" target="edit">{OTILIS_BUTTON_VALUE}</a></div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"> &nbsp; </td>
+        </tr>
+        <!-- END teamsinleagueinseason -->
+
+        <!-- BEGIN dayofmatch -->
+        <tr class="action">
+          <td colspan="2" class="action">
+            <div align="left">{DOM_TEXT}</div>
+            <div align="right"><a href="dayOfMatchList.php" target="edit">{DOM_BUTTON_VALUE}</a></div>
+          </td>
+        </tr>
+        <!-- BEGIN select_dom -->
+        <tr>
+          <td>Spieltag: </td>
+          <td>
+            <select name="domNumber" onchange="submit()">
+              <option value=""></option>
+              <!-- BEGIN select_dom_option -->
+              <option value="{SELECT_DOM_VALUE}" {SELECT_DOM_SELECTED}>{SELECT_DOM_NAME}</option>
+              <!-- END select_dom_option -->
+            </select>
+            <input type="submit" value="OK"></input>
+          </td>
+        </tr>
+        <!-- END select_dom -->
+        <!-- END dayofmatch -->
+
+        <!-- BEGIN match -->
+        <tr class="action">
+          <td colspan="2" class="action">
+            <div align="right"><a href="matchDateList.php" target="edit">Spiele erfassen / bearbeiten ({REGISTER_ACT}/{REGISTER_TARGET})</a></div>
+            <div align="right"><a href="matchInfoList.php" target="edit">Zusatzinfos zu Spielen</a></div>
+            <div align="right"><a href="matchPostponeList.php" target="edit">Verlegungen / Absagen</a></div>
+            <div align="right"><a href="matchResultList.php" target="edit">Ergebnisse eintragen ({RESULT_ACT}/{RESULT_TARGET})</a></div>
+            <div align="right"><a href="matchReportList.php" target="edit">Spielberichte</a></div>
+          </td>
+        </tr>
+         <!-- END match -->
+
+
+
+      </table>
+    </form>
+    <script language="javascript">
+      parent.edit.location.href = "empty.php";
+    </script>
+    <!-- END league -->
+  </body>
+</html>
+
+

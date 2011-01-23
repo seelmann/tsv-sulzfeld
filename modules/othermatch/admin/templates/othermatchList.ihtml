@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <link rel="STYLESHEET" type="text/css" href="/css/admin.css"></link>
+    <script language="JavaScript" src="othermatch.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <form name="menuform" action="othermatchList.php" method="post">
+      <table>
+        <tr><td><a href="othermatch.php?new=new" target="edit">neues Spiel eintragen</a></td></tr>
+        <tr><td>&nbsp;</td></tr>
+        <tr>
+          <td>Spiele bearbeiten:
+            <select name="othermatch" onchange="submit()">
+              <option value=""></option>
+              <option value="fut2">Termine der nächsten 2 Wochen anzeigen</option>
+              <option value="futall">alle zukünftigen Termine anzeigen</option>
+              <option value="all">alle Termine anzeigen</option>
+            </select>
+            <input type="submit" value="OK"></input>
+          </td>
+        </tr>
+        <!-- BEGIN othermatch -->
+        <tr><td><a href="othermatch.php?othermatchID={OM_OMID}" target="edit">{OM_NAME}</a></td></tr>
+        <!-- END othermatch -->
+        <tr><td>&nbsp;</td></tr>
+        <tr>
+          <td>Ergebnisse eintragen:
+            <select name="result" onchange="submit()">
+              <option value=""></option>
+              <option value="mis2">fehlende Ergebnisse der letzen 2 Wochen anzeigen</option>
+              <option value="misall">alle fehlenden Ergebnisse anzeigen</option>
+              <option value="all">alle Ergebnisse anzeigen</option>
+            </select>
+            <input type="submit" value="OK"></input>
+          </td>
+        </tr>
+        <!-- BEGIN result -->
+        <tr><td><a href="result.php?othermatchID={RESULT_OMID}" target="edit">{RESULT_NAME}</a></td></tr>
+        <!-- END result -->
+      </table>
+    </form>
+  </body>
+</html>
+
+

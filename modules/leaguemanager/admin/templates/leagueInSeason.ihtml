@@ -1,0 +1,97 @@
+<html>
+  <head>
+    <link rel="STYLESHEET" type="text/css" href="/css/admin.css"></link>
+    <script language="JavaScript" src="lm.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <form name="save" action="leagueInSeason.php" method="post">
+      <h1>{LIS_HEADER}</h1>
+      <table>
+        <!-- BEGIN error -->
+        <tr>
+          <td colspan="2" align="center">{ERROR_TEXT}</td>
+        </tr>
+        <!-- END error -->
+        <!-- BEGIN lis -->
+        <tr>
+          <td>Saison: </td>
+          <td><input type="text" value="{LIS_SEASON_NAME}" readonly></input></td>
+        </tr>
+        <tr>
+          <td>Sportart: </td>
+          <td><input type="text" value="{LIS_SPORT_NAME}" readonly></input></td>
+        </tr>
+        <tr>
+          <td>Liga: </td>
+          <td><input type="text" value="{LIS_LEAGUE_NAME}" readonly></input></td>
+        </tr>
+        <tr>
+          <td>Altersgruppe: </td>
+          <td><input type="text" value="{LIS_ACTIVE_YOUTH}" readonly></input></td>
+        </tr>
+        <tr>
+          <td>Anzahl der Mannschaften: </td>
+          <td><input type="text" name="numberofteams" value="{LIS_NUMBEROFTEAMS}"></input></td>
+        </tr>
+        <tr>
+          <td>Doppelrunde? </td>
+          <td>
+            <input type="radio" name="double" value="true" {LIS_DOUBLE_TRUE_SELECTED}></input>
+            ja
+            &nbsp; &nbsp; &nbsp; &nbsp;
+            <input type="radio" name="double" value="false" {LIS_DOUBLE_FALSE_SELECTED}></input>
+            nein
+          </td>
+        </tr>
+        <tr>
+          <td>Spieltage? </td>
+          <td>
+            <input type="radio" name="dom" value="true" {LIS_DOM_TRUE_SELECTED}></input>
+            ja
+            &nbsp; &nbsp; &nbsp; &nbsp;
+            <input type="radio" name="dom" value="false" {LIS_DOM_FALSE_SELECTED}></input>
+            nein
+          </td>
+        </tr>
+        <tr>
+          <td>Geschlecht: </td>
+          <td>
+            <input type="radio" name="malefemale" value="male" {LIS_MALEFEMALE_MALE_SELECTED}></input>
+            Herren/Jungen
+            &nbsp; &nbsp; &nbsp; &nbsp;
+            <input type="radio" name="malefemale" value="female" {LIS_MALEFEMALE_FEMALE_SELECTED}></input>
+            Damen/Mädchen
+            &nbsp; &nbsp; &nbsp; &nbsp;
+            <input type="radio" name="malefemale" value="mixed" {LIS_MALEFEMALE_MIXED_SELECTED}></input>
+            Mixed
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <input type="hidden" name="job" value=""></input>
+            <input type="button" value="abbrechen" onclick="doCancel('')"></input>
+            &nbsp;
+            <!-- BEGIN modifybuttons -->
+            <input type="button" value="ändern" onclick="doModify()"></input>
+            &nbsp;
+            <input type="button" value="löschen" onclick="doDelete()"></input>
+            <!-- END modifybuttons -->
+            <!-- BEGIN createbuttons -->
+            <input type="button" value="erstellen" onclick="doCreate()"></input>
+            <!-- END createbuttons -->
+          </td>
+        </tr>
+        <!-- END lis -->
+        <!-- BEGIN success -->
+        <tr>
+          <td colspan="2" align="center">{SUCCESS_TEXT}</td>
+          <script language="javascript">
+            window.setTimeout("location.href = 'empty.php'; parent.menu.document.menuform.submit()",2000)
+          </script>
+        </tr>
+        <!-- END success -->
+      </table>
+    </form>
+  </body>
+</html>
+

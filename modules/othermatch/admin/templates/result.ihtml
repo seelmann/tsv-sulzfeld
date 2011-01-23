@@ -1,0 +1,77 @@
+<html>
+  <head>
+    <link rel="STYLESHEET" type="text/css" href="/css/admin.css"></link>
+    <script language="JavaScript" src="othermatch.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <form name="save" action="result.php" method="post">
+      <h1 align="center">{OM_HEADER}</h1>
+      <table>
+        <!-- BEGIN error -->
+        <tr>
+          <td colspan="2" align="center">{ERROR_TEXT}</td>
+        </tr>
+        <!-- END error -->
+        <!-- BEGIN othermatch -->
+        <tr>
+          <td>Sportart:</td>
+          <td><input type="text" size="40" readonly="readonly" value="{OM_SPORTNAME}"></input></td>
+        </tr>
+        <tr>
+          <td>Datum:</td>
+          <td><input type="text" size="12" readonly="readonly" value="{OM_DATE}"></input></td>
+        </tr>
+        <tr>
+          <td>Uhrzeit:</td>
+          <td><input type="text" size="12" readonly="readonly" value="{OM_TIME}"></input></td>
+        </tr>
+        <tr>
+          <td>Heim:</td>
+          <td><input type="text" size="40" readonly="readonly" value="{OM_HOME}"></input></td>
+        </tr>
+        <tr>
+          <td>Gast:</td>
+          <td><input type="text" size="40" readonly="readonly" value="{OM_GUEST}"></input></td>
+        </tr>
+        <tr>
+          <td>Ergebnis:</td>
+          <td><input type="text" size="10" name="homeresult" value="{OM_HOMERESULT}"></input> : <input type="text" size="10" name="guestresult" value="{OM_GUESTRESULT}"></input></td>
+        </tr>
+        <tr>
+          <td>Ausgefallen:</td>
+          <td><input type="checkbox" name="canceled" value="yes" {OM_CANCELED}></input></td>
+        </tr>
+
+
+        <tr><td>&nbsp;</td></tr>
+        <tr><td colspan="2">Spielbericht (optional):</td></tr>
+        <tr>
+          <td>Überschrift:</td>
+          <td><input type="text" size="40" name="head" value="{OM_HEAD}"></input></td>
+        </tr>
+        <tr>
+          <td>Text:</td>
+          <td><textarea wrap="virtual" name="text" cols="40" rows="20">{OM_TEXT}</textarea></td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <input type="hidden" name="job" value=""></input>
+            <input type="button" value="abbrechen" onclick="doCancel('')"></input>
+            &nbsp;
+            <input type="button" value="eintragen" onclick="doModify()"></input>
+          </td>
+        </tr>
+        <!-- END othermatch -->
+        <!-- BEGIN success -->
+        <tr>
+          <td colspan="2" align="center">{SUCCESS_TEXT}</td>
+          <script language="javascript">
+            window.setTimeout("location.href='empty.php';",2000)
+          </script>
+        </tr>
+        <!-- END success -->
+      </table>
+    </form>
+  </body>
+</html>
+

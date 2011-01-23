@@ -1,0 +1,339 @@
+<?php
+        include_once("classDateTimeFormat.php");
+
+        class MatchDate
+        {
+                var $homeTeamName = "";
+                var $guestTeamName = "";
+                var $date = "";
+                var $time = "";
+                var $infoHead = "";
+                var $infoText = "";
+                var $infoID = 0;
+                var $event = "";
+                var $postponeID = 0;
+
+                var $sportName = "";
+                var $sportID = 0;
+
+                var $sportArray = array();
+                var $sportIndex = 0;
+                var $sportNumber = 0;
+
+                var $dateArray = array();
+                var $dateIndex = 0;
+                var $dateNumber = 0;
+
+                var $db;
+                var $dateTimeFormat;
+
+                function MatchDate($db)
+                {
+                        $this->db = $db;
+                        $this->dateTimeFormat = new DateTimeFormat();
+                }
+
+                function createSportDates($weeks=2)
+                {
+/*
+                        $query = sprintf( "select    sport.ID,
+                                                     sport.name,
+                                                     count(mat1.date) as number
+                                           from      lmSport as sport
+
+                                           left join lmOwnTeamInLeagueInSeason as otilis
+                                           on        sport.ID=otilis.sportID
+
+                                           left join lmMatchOfLeague as mat1
+                                           on        sport.ID=mat1.sportID
+                                           and       mat1.date < '%s'
+                                           and       mat1.date > curdate()
+
+                                           where     ( otilis.teamID = mat1.homeTeamID or
+                                                       otilis.teamID = mat1.guestTeamID
+                                                     )
+
+                                           group by  sport.ID
+                                        ", date("Ymd", time()+86400*30),
+                                           date("Ymd", time()+86400*30)
+                                        );
+echo $query;
+echo "<br>";
+*/
+                        $query = sprintf( "select       
+                                                     sport.ID,
+                                                     sport.name,
+                                                     count(mat.date) as number
+                                           from      lmSport as sport,
+                                                     lmOwnTeamInLeagueInSeason as otilis,
+                                                     lmMatchOfLeague as mat
+
+                                           where     sport.ID=otilis.sportID
+                                           and       sport.ID=mat.sportID
+                                           and       mat.date <= '%s'
+                                           and       mat.date >= curdate()
+
+                                           and       ( otilis.teamID = mat.homeTeamID or
+                                                       otilis.teamID = mat.guestTeamID
+                                                     )
+
+                                           group by  sport.ID
+                                           order by  sport.name
+                                        ", date("Ymd", time()+86400*(7*$weeks+1)) );
+                        $this->db->executeQuery($query);
+                        while($this->db->nextRow())
+                                $this->sportArray[] = array($this->db->getValue("ID"), $this->db->getValue("name"), $this->db->getValue("number"));
+                        $this->sportNumber = sizeof($this->sportArray);
+                }
+
+
+                function createLeagueDates()
+                {
+                }
+
+
+                function nextSport($weeks=2, $limit=0)
+                {
+                        if($limit == 0)
+                                $limit = 1000000;
+                        while($this->sportIndex < $this->sportNumber)
+                        {
+                                $this->sportID = $this->sportArray[$this->sportIndex][0];
+                                $this->sportName = $this->sportArray[$this->sportIndex][1];
+                                if($this->sportArray[$this->sportIndex][2] > 0)
+                                {
+                                        $this->dateArray = array();
+/*
+                                        $query = sprintf( " select    home.name as home,
+                                                                      guest.name as guest,
+                                                                      mat.date as isodate,
+                                                                      mat.time as isotime,
+                                                                      date_format(mat.date, '%%d.%%m.%%Y') as date,
+                                                                      time_format(mat.time, '%%H:%%i') as time
+
+                                                            from      lmMatchOfLeague as mat
+
+                                                            left join lmOwnTeamInLeagueInSeason as otilis
+                                                            using     (seasonID, sportID, leagueID)
+
+                                                            left join lmTeam as home
+                                                            on        mat.homeTeamID=home.ID
+
+                                                            left join lmTeam as guest
+                                                            on        mat.guestTeamID=guest.ID
+
+                                                            where     mat.date <= '%s'
+                                                            and       mat.date >= curdate()
+                                                            and       mat.sportID = '%s'
+
+                                                            and       ( otilis.teamID = mat.homeTeamID or
+                                                                        otilis.teamID = mat.guestTeamID
+                                                                      )
+                                                         ", date("Ymd", time()+86400*30),
+                                                            $this->sportID
+                                                        );
+echo $query;
+echo "<br>";
+*/
+                                        $query = sprintf( " select distinct home.name as home,
+                                                                      guest.name as guest,
+                                                                      mat.date as isodate,
+                                                                      mat.time as isotime,
+                                                                      date_format(mat.date, '%%d.%%m.%%Y') as date,
+                                                                      time_format(mat.time, '%%H:%%i') as time,
+                                                                      info.ID as infoID,
+                                                                      info.head,
+                                                                      info.text
+
+                                                            from      lmMatchOfLeague as mat
+                                                            left join lmMatchInfo as info
+                                                            using     (seasonID, sportID, leagueID, dayOfMatchNumber, number),
+                                                                      lmOwnTeamInLeagueInSeason as otilis,
+                                                                      lmTeam as home,
+                                                                      lmTeam as guest
+
+                                                            where     mat.seasonID = otilis.seasonID
+                                                            and       mat.sportID = otilis.sportID
+                                                            and       mat.leagueID = otilis.leagueID
+                                                            and       ( mat.homeTeamID = otilis.teamID or
+                                                                        mat.guestTeamID = otilis.teamID )
+
+                                                            and       mat.homeTeamID=home.ID
+                                                            and       mat.guestTeamID=guest.ID
+
+                                                            and       mat.date <= '%s'
+                                                            and       mat.date >= curdate()
+                                                            and       mat.sportID = '%s'
+
+                                                            order by  mat.date,
+                                                                      mat.time
+
+                                                            limit     0,%s
+
+                                                         ", date("Ymd", time()+86400*(7*$weeks+1)),
+                                                            $this->sportID,
+                                                            $limit
+                                                        );
+                                        $this->db->executeQuery($query);
+                                        while($this->db->nextRow())
+                                                $this->dateArray[] = array( $this->db->getValue("date"),
+                                                                            $this->db->getValue("time"),
+                                                                            $this->db->getValue("home"),
+                                                                            $this->db->getValue("guest"),
+                                                                            $this->db->getValue("isodate"),
+                                                                            $this->db->getValue("isotime"),
+                                                                            $this->db->getValue("head"),
+                                                                            $this->db->getValue("text"),
+                                                                            $this->db->getValue("infoID"),
+                                                                            0 );
+
+                                        // postponed
+                                        $query = sprintf( " select    home.name as home,
+                                                                      guest.name as guest,
+                                                                      postpone.newdate as isodate,
+                                                                      postpone.newtime as isotime,
+                                                                      date_format(postpone.newdate, '%%d.%%m.%%Y') as date,
+                                                                      time_format(postpone.newtime, '%%H:%%i') as time,
+                                                                      postpone.ID as postponeID
+
+                                                            from      lmMatchPostpone as postpone
+                                                            left join lmMatchOfLeague as mat
+                                                            using     (seasonID, sportID, leagueID, dayOfMatchNumber, number),
+                                                                      lmOwnTeamInLeagueInSeason as otilis,
+                                                                      lmTeam as home,
+                                                                      lmTeam as guest
+
+                                                            where     postpone.seasonID = otilis.seasonID
+                                                            and       postpone.sportID = otilis.sportID
+                                                            and       postpone.leagueID = otilis.leagueID
+                                                            and       ( mat.homeTeamID = otilis.teamID or
+                                                                        mat.guestTeamID = otilis.teamID )
+
+                                                            and       mat.homeTeamID=home.ID
+                                                            and       mat.guestTeamID=guest.ID
+
+                                                            and       postpone.newdate <= '%s'
+                                                            and       postpone.newdate >= curdate()
+                                                            and       postpone.sportID = '%s'
+
+                                                            order by  postpone.newdate,
+                                                                      postpone.newtime
+
+                                                            limit     0,%s
+
+                                                         ", date("Ymd", time()+86400*(7*$weeks+1)),
+                                                            $this->sportID,
+                                                            $limit
+                                                        );
+                                        $this->db->executeQuery($query);
+                                        while($this->db->nextRow())
+                                                $this->dateArray[] = array( $this->db->getValue("date"),
+                                                                            $this->db->getValue("time"),
+                                                                            $this->db->getValue("home"),
+                                                                            $this->db->getValue("guest"),
+                                                                            $this->db->getValue("isodate"),
+                                                                            $this->db->getValue("isotime"),
+                                                                            "",
+                                                                            "",
+                                                                            0,
+                                                                            $this->db->getValue("postponeID") );
+
+                                        $this->dateNumber = sizeof($this->dateArray);
+                                        $this->dateIndex = 0;
+                                        $this->sportIndex++;
+
+                                        usort($this->dateArray, array(&$this,'cmp'));
+
+                                        return true;
+                                }
+                                else
+                                        $this->sportIndex++;
+                        }
+                        return false;
+                }
+
+                function hasDate()
+                {
+                }
+
+                function nextDate()
+                {
+                        if($this->dateIndex < $this->dateNumber)
+                        {
+                                $this->date = $this->dateArray[$this->dateIndex][0];
+                                $this->time = $this->dateArray[$this->dateIndex][1];
+                                $this->homeTeamName = $this->dateArray[$this->dateIndex][2];
+                                $this->guestTeamName = $this->dateArray[$this->dateIndex][3];
+                                $this->infoHead = $this->dateArray[$this->dateIndex][6];
+                                $this->infoText = $this->dateArray[$this->dateIndex][7];
+                                $this->infoID = $this->dateArray[$this->dateIndex][8];
+                                $this->postponeID = $this->dateArray[$this->dateIndex][9];
+                                $this->dateIndex++;
+                                return true;
+                        }
+                        else
+                                return false;
+                }
+
+                function cmp ($a, $b)
+                {
+                                if ( $a[4] < $b[4] )
+                                        return -1;
+                                else if( $a[4] > $b[4] )
+                                        return 1;
+                                else
+                                {
+                                        if ( $a[5] < $b[5] )
+                                                return -1;
+                                        else if ( $a[5] > $b[5] )
+                                                return 1;
+                                }
+                                return 0;
+                }
+
+                function getSportName()
+                {
+                        return $this->sportName;
+                }
+                function getDate()
+                {
+                        return $this->dateTimeFormat->addDay($this->date);
+                }
+                function getTime()
+                {
+                        return $this->time;
+                }
+                function getHomeTeamName()
+                {
+                        return $this->homeTeamName;
+                }
+                function getGuestTeamName()
+                {
+                        return $this->guestTeamName;
+                }
+                function getEvent()
+                {
+                        return $this->event;
+                }
+                function getInfoHead()
+                {
+                        return $this->infoHead;
+                }
+                function getInfoText()
+                {
+                        return $this->infoText;
+                }
+                function getInfoID()
+                {
+                        return $this->infoID;
+                }
+                function getPostponeID()
+                {
+                        return $this->postponeID;
+                }
+                function getDateNumber()
+                {
+                        return $this->dateNumber;
+                }
+        }
+?>

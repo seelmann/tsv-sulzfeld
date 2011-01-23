@@ -1,0 +1,43 @@
+<html>
+  <head>
+    <link rel="STYLESHEET" type="text/css" href="/css/admin.css"></link>
+    <script language="JavaScript" src="lm.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <form name="save" action="ownTeamsInLeagueInSeason.php" method="post">
+      <h1>Eigene Mannschaften</h1>
+      <table>
+        <!-- BEGIN error -->
+        <tr>
+          <td colspan="2" align="center">{ERROR_TEXT}</td>
+        </tr>
+        <!-- END error -->
+        <!-- BEGIN otilis -->
+        <!-- BEGIN team -->
+        <tr>
+          <td> {TEAM_NAME} </td>
+          <td> <input type="text" name="ownteams[{TEAM_ID}]" value="{OTEAM_NAME}"> </input> </td>
+        </tr>
+        <!-- END team -->
+        <tr>
+          <td colspan="2">
+            <input type="hidden" name="job" value=""></input>
+            <input type="button" value="abbrechen" onclick="doCancel('')"></input>
+            &nbsp;
+            <input type="button" value="OK" onclick="doModify()"></input>
+          </td>
+        </tr>
+        <!-- END otilis -->
+        <!-- BEGIN success -->
+        <tr>
+          <td colspan="2" align="center">{SUCCESS_TEXT}</td>
+          <script language="javascript">
+            window.setTimeout("location.href = 'empty.php'; parent.menu.document.menuform.submit()",2000)
+          </script>
+        </tr>
+        <!-- END success -->
+      </table>
+    </form>
+  </body>
+</html>
+

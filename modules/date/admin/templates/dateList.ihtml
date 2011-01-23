@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <link rel="STYLESHEET" type="text/css" href="/css/admin.css"></link>
+    <script language="JavaScript" src="date.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <form name="menuform" action="dateList.php" method="post">
+      <table>
+        <tr><td><a href="date.php?new=new" target="edit">neuen Termin eintragen</a></td></tr>
+        <tr><td>&nbsp;</td></tr>
+        <tr>
+          <td>Zeitraum:
+            <select name="week" onchange="submit()">
+              <option value=""></option>
+              <option value="2">Termine der nächsten 2 Wochen</option>
+              <option value="4">Termine der nächsten 4 Wochen</option>
+              <option value="13">Termine der nächsten 3 Monate</option>
+              <option value="0">alle zukünftigen Termine</option>
+            </select>
+            <input type="submit" value="OK"></input>
+          </td>
+        </tr>
+        <tr><td>&nbsp;</td></tr>
+        <!-- BEGIN date -->
+        <tr><td><a href="date.php?dateID={DATE_DATEID}" target="edit">{DATE_DATENAME}</a></td></tr>
+        <!-- END date -->
+      </table>
+    </form>
+  </body>
+</html>
+
+
