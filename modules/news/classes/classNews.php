@@ -115,13 +115,13 @@
                                                     moduser,
                                                     modtime,
                                                     gen.realname as genrealname,
-                                                    mod.realname as modrealname
+                                                    modi.realname as modrealname
                                           from      moduleNews,
                                                     authUser gen,
-                                                    authUser mod
+                                                    authUser modi
                                           where     ID='%s'
                                           and       gen.username=genuser
-                                          and       mod.username=moduser",
+                                          and       modi.username=moduser",
                                                     $id);
                         $this->db->executeQuery($query);
                         if($this->db->nextRow())
