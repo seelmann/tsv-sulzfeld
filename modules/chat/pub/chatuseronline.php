@@ -1,5 +1,5 @@
 <?php
-ini_set("include_path","./:/homepages/42/d73812555/htdocs/tsv-sulzfeld/modules/common/classes");
+ini_set("include_path","./:/homepages/25/d358692369/htdocs/tsv-sulzfeld/modules/common/classes");
 include_once("classError.php");
 include_once("classDBmysql.php");
 

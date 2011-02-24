@@ -27,7 +27,7 @@
             $this->db = $db;
             $this->lock = new Lock($error, $db, "imageImage");
             // $this->imagePath = "/www/htdocs/tsvsulz/images/";
-            $this->imagePath = "/homepages/42/d73812555/htdocs/tsv-sulzfeld/images/";
+            $this->imagePath = "/homepages/25/d358692369/htdocs/tsv-sulzfeld/images/";
             $this->ID = 0;
 
         }
